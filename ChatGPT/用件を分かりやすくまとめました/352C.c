@@ -37,28 +37,55 @@ int compare(const void *a, const void *b) {
 int main() {
     int N;
     scanf("%d", &N);
-
+    long result=0;
     // AとBの値を配列に格納
     long long int A[N], B[N];
     for (int i = 0; i < N; i++) {
         scanf("%lld %lld", &A[i], &B[i]);
     }
 
-    // Bを基準に降順でソート
-    qsort(B, N, sizeof(long long int), compare);
-
     // 頭の高さの最大値を求める
     long long int maxHeight = B[0];
     long long int currentHeight = maxHeight;
     for (int i = 1; i < N; i++) {
-        currentHeight += A[i - 1];
+        currentHeight = B[i]-A[i];
         if (currentHeight > maxHeight) {
             maxHeight = currentHeight;
         }
-        currentHeight = (currentHeight < B[i]) ? B[i] : currentHeight;
+        result+=A[i];
     }
-
-    printf("%lld\n", maxHeight);
+    result+=maxheight;
+    printf("%lld\n", result);
 
     return 0;
 }
+/*
+不正解
+#include <stdio.h>
+#include <stdlib.h>
+int main() {
+  int N;
+  scanf("%d", &N);
+  long result = 0;
+  // AとBの値を配列に格納
+  long long int A[N], B[N];
+  for (int i = 0; i < N; i++) {
+    scanf("%lld %lld", &A[i], &B[i]);
+  }
+
+  // 頭の高さの最大値を求める
+  long long int maxHeight = 0;
+  long long int currentHeight = 0;
+  for (int i = 0; i < N; i++) {
+    currentHeight = B[i] - A[i];
+    if (currentHeight > maxHeight) {
+      maxHeight = currentHeight;
+    }
+    result += A[i];
+  }
+  result += maxHeight;
+  printf("%ld\n", result);
+
+  return 0;
+}
+*/

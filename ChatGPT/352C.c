@@ -113,43 +113,86 @@ B N
 
 // 比較関数
 int compare(const void *a, const void *b) {
-    // 頭の高い順にソートする
-    return *((int*)b + 1) - *((int*)a + 1);
+  // 頭の高い順にソートする
+  return *((int *)b + 1) - *((int *)a + 1);
 }
 
 int main() {
-    int N;
-    scanf("%d", &N);
-    int current_height=0;
-    int result=0;
-    int giants[N][2]; // 各巨人の肩の高さと頭の高さを格納する配列
+  int N;
+  scanf("%d", &N);
 
-    // 各巨人の情報を入力
-    for (int i = 0; i < N; i++) {
-        scanf("%d %d", &giants[i][0], &giants[i][1]);
+  int giants[N][2]; // 各巨人の肩の高さと頭の高さを格納する配列
+
+  // 各巨人の情報を入力
+  for (int i = 0; i < N; i++) {
+    scanf("%d %d", &giants[i][0], &giants[i][1]);
+  }
+
+  // 頭の高い順にソート
+  qsort(giants, N, sizeof(giants[0]), compare);
+
+  long long current_height =
+      giants[0][0] + giants[0][1];       // 現在の積み上げの高さ
+  long long max_height = current_height; // 最大の積み上げの高さ
+
+  // 各巨人を積み上げていく
+  for (int i = 1; i < N; i++) {
+    current_height += giants[i][0];      // 肩の高さを加算
+    if (current_height < giants[i][1]) { // 頭の高さを加算
+      current_height = giants[i][1];
     }
-
-     // 最大の積み上げの高さ
-
-    // 各巨人を積み上げていく
-    for (int i = 1; i < N; i++) {
-        current_height=giants[i][1]-giants[i][0];
-        if (current_height > max_height) { // 最大の積み上げの高さを更新
-            max_height = current_height;
-        }
-        result+=giants[i][0];
+    if (current_height > max_height) { // 最大の積み上げの高さを更新
+      max_height = current_height;
     }
-  result+=max_height
-    printf("%lld\n", result);
+  }
 
-    return 0;
+  printf("%lld\n", max_height);
+
+  return 0;
 }
+
 /*
 1回目:上の問題をChatGPTに解かせ、コードを生成。　結果：不正解
 2回目:誤り修正中
 生成AIが作ったコード
 頭の高さが高い巨人の背の高さ(ここでは、頭の高さと肩の高さの合計。問題の意図とは異なる。)を足し、肩の高さを足していた。
+#include <stdio.h>
+#include <stdlib.h>
 
+// 比較関数
+int compare(const void *a, const void *b) {
+  // 頭の高い順にソートする
+  return *((int *)b + 1) - *((int *)a + 1);
+}
+
+int main() {
+  int N;
+  int current_height = 0;
+  long result = 0;
+  long max_height = 0;
+  (void)scanf("%d", &N);
+  int giants[N][2]; // 各巨人の肩の高さと頭の高さを格納する配列
+
+  // 各巨人の情報を入力
+  for (int i = 0; i < N; i++) {
+    (void)scanf("%d %d", &giants[i][0], &giants[i][1]);
+  }
+
+  // 最大の積み上げの高さ
+
+  // 各巨人を積み上げていく
+  for (int i = 0; i < N; i++) {
+    current_height = giants[i][1] - giants[i][0];
+    if (current_height > max_height) { // 最大の積み上げの高さを更新
+      max_height = current_height;
+    }
+    result += giants[i][0];
+  }
+  result += max_height;
+  printf("%ld\n", result);
+
+  return 0;
+}
 考察:
 問題文の意図の理解に漏れがある可能性。
 */

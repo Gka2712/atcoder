@@ -20,3 +20,51 @@ A1 A2・・・・・AN
 N回の操作の後で、列にあるボールの数を出力せよ。
 
 では問題をとき、コードを生成してください
+#include <stdio.h>
+#define MAX_SIZE 300000
+int top,bottom;
+void push(int n){
+    stack[++top]=n;
+}
+int pop{
+    return stack[top--];
+}
+int main() {
+    int N;
+    bottom=0;
+    top=-1;
+    scanf("%d", &N);
+    count=0;
+    int num1,num2;
+    // ボールの大きさを格納する配列
+    long long balls[MAX_SIZE];
+    
+    // ボールの大きさを入力
+    for (int i = 0; i < N; i++) {
+        scanf("%lld", &balls[i]);
+    }
+    // 操作を行う
+    for (int i = 0; i < N - 1; i++) {
+        push(balls[i]);
+        count++;
+        while(count>1){
+            num1=pop();
+            num2=pop();
+            if(num1==num2){
+                push(num1+1);
+                count--;
+            }else{
+                push(num2);
+                push(num1);
+                break;
+            }
+        }
+    }
+    printf("%d\n", count);
+    return 0;
+}
+/*
+不正解
+原因　理解漏れ?処理のミス?
+問題文では、ボールを右に加え、ボールが1つしかない、または右から1番目のボールと2番目のボールの大きさが異なれば、操作を終了する所がN回右から1番目と2番目のボールが等しい時に行われるプログラムになっていた。
+*/

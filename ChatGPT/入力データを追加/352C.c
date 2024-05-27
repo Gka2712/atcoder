@@ -30,3 +30,38 @@ N行、それぞれA(N),B(N)の値を入力
 一番上に立っている巨人の頭の高さが地面を基準として18より大きくなることがないため18を出力します。
 では問題を解き、コードを生成してください。
 不正解
+#include <stdio.h>
+#include <stdlib.h>
+
+// 比較関数
+int compare(const void *a, const void *b) {
+    return (*(int*)a - *(int*)b);
+}
+
+int main() {
+    int N;
+    scanf("%d", &N);
+
+    // 差分の配列を用意して、A[i] + B[i] を計算
+    long long *diff = (long long*)malloc(N * sizeof(long long));
+    for (int i = 0; i < N; i++) {
+        int A, B;
+        scanf("%d %d", &A, &B);
+        diff[i] = A + B;
+    }
+
+    // 差分を降順にソート
+    qsort(diff, N, sizeof(long long), compare);
+
+    // 差分の最大値が答え
+    printf("%lld\n", diff[N - 1]);
+
+    // メモリの解放
+    free(diff);
+
+    return 0;
+}
+/*
+不正解
+全体的に配列の和の最大値を求めるプログラムになっていた
+*/

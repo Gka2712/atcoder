@@ -68,3 +68,48 @@ int main() {
 
     return 0;
 }
+/*
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+    char S[200001]; // Sの長さの上限は2*10^5なので十分なサイズの配列を確保する
+    char T[200001]; // Tの長さの上限は2*10^5なので十分なサイズの配列を確保する
+    scanf("%s", S);
+    scanf("%s", T);
+
+    int len_S = strlen(S);
+    int len_T = strlen(T);
+
+    int idx_S = 0; // Sの現在の文字位置
+    int idx_T = 0; // Tの現在の文字位置
+
+    // 正しく入力された文字の位置を保存する配列
+    int correct_positions[200001]; // 上限の長さに合わせて適切なサイズの配列を確保する
+    int correct_idx = 0; // 正しく入力された文字の数
+
+    // Tを順に走査して、Sと一致する文字を見つける
+    while (idx_T < len_T) {
+        // Tの現在の文字とSの現在の文字が一致した場合、Sの次の文字へ移動
+        if (T[idx_T] == S[idx_S]) {
+            correct_positions[correct_idx++] = idx_T + 1; // 1-indexedにするため+1する
+            idx_S++;
+        }
+        idx_T++;
+    }
+
+    // 正しく入力された文字の位置を出力
+    for (int i = 0; i < correct_idx; i++) {
+        printf("%d", correct_positions[i]);
+        if (i < correct_idx - 1) {
+            printf(" ");
+        }
+    }
+    printf("\n");
+
+    return 0;
+}
+原因
+処理ミス
+文字が一致しているTの位置を答える所が、文字が一致しているSの位置を答えてしまっている。
+*/

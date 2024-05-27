@@ -49,3 +49,42 @@ int main() {
 
     return 0;
 }
+/*
+不正解
+正解コード
+#include <stdio.h>
+#include <string.h>
+
+int main() {
+  char S[200001], T[200001];
+  scanf("%s %s", S, T);
+
+  int lenS = strlen(S);
+  int lenT = strlen(T);
+
+  // Tの文字が正しく入力された文字列Sの何文字目かを格納する配列
+  int correctIdx[lenT];
+  memset(correctIdx, 0, sizeof(correctIdx));
+
+  // Tの文字が正しく入力された文字列Sの何文字目かを求める
+  int sIndex = 0, tIndex = 0;
+  while (sIndex < lenS && tIndex < lenT) {
+    if (S[sIndex] == T[tIndex]) {
+      correctIdx[sIndex] = tIndex + 1; // 1-indexedで格納
+      sIndex++;
+    }
+    tIndex++;
+  }
+
+  // 結果を出力
+  for (int i = 0; i < lenS; i++) {
+    printf("%d ", correctIdx[i]);
+  }
+  printf("\n");
+
+  return 0;
+}
+処理の流れミス?
+不正解プログラムでは、文字列Tが一致しているSの位置をSの文字列の長さ分表示するプログラムになっていた。
+正しくは、文字列Sが一致しているTの位置を表示するプログラムである。
+*/

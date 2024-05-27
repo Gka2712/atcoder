@@ -47,7 +47,91 @@ int main() {
 }
 /*
 1回目: 上の問題をChatGPTに解かせ、コードを生成。　結果：不正解
-2回目: 修正中
+2回目: 修正して正解
+#include <stdio.h>
+#include <stdlib.h>
+
+// スタックのデータ構造
+typedef struct Node {
+  int data;
+  struct Node *next;
+} Node;
+
+typedef struct {
+  Node *top;
+  int size;
+} Stack;
+
+// スタックの初期化
+void initialize(Stack *s) {
+  s->top = NULL;
+  s->size = 0;
+}
+// スタックが空かどうかをチェック
+int isEmpty(Stack *s) { return s->top == NULL; }
+
+// スタックに要素をプッシュ
+void push(Stack *stack, int value) {
+  Node *newNode = (Node *)malloc(sizeof(Node));
+  if (newNode == NULL) {
+    printf("Memory allocation failed\n");
+    exit(1);
+  }
+  newNode->data = value;
+  newNode->next = stack->top;
+  stack->top = newNode;
+  stack->size++;
+}
+
+// スタックから要素をポップ
+int pop(Stack *stack) {
+  if (isEmpty(stack)) {
+    printf("Stack underflow\n");
+    return -10;
+  }
+  int data = stack->top->data;
+  Node *temp = stack->top;
+  stack->top = stack->top->next;
+  free(temp);
+  stack->size--;
+  return data;
+}
+
+// スタックの一番上の要素を取得
+int peek(Stack *s) {
+  if (isEmpty(s)) {
+    printf("Stack is empty\n");
+    return -20;
+  }
+  return s->top->data;
+}
+int main() {
+  Stack stack;
+  int N, i;
+  int num1, num2;
+  scanf("%d", &N);
+  int A[N];
+  for (i = 0; i < N; i++) {
+    scanf("%d", &A[i]);
+  }
+  initialize(&stack);
+  for (i = 0; i < N; i++) {
+    push(&stack, A[i]);
+    while (stack.size > 1) {
+      num1 = pop(&stack);
+      num2 = pop(&stack);
+      if (num1 == num2) {
+        push(&stack, num1 + 1);
+      } else {
+        push(&stack, num2);
+        push(&stack, num1);
+        break;
+      }
+    }
+  }
+  printf("%d", stack.size);
+  return 0;
+}
 原因
 操作終了条件のところで、ボールの大きさが1番目と2番目のボールの大きさが異なる時に操作を終了する所をボールの大きさが2の累乗の倍数でない時に終了するという間違った認識をしている場合。
 */

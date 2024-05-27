@@ -58,3 +58,43 @@ int main() {
 
     return 0;
 }
+/*
+不正解
+理解漏れ チーム青木が勝つための条件は、チーム高橋の得点-チーム青木の得点+1なのに対し、チーム高橋の得点-チーム青木の得点で計算されていた。
+だんだんと近づいてきている。
+#include <stdio.h>
+
+int main() {
+    int A[9], B[8];
+    
+    // チーム高橋の得点を入力
+    for (int i = 0; i < 9; i++) {
+        scanf("%d", &A[i]);
+    }
+    
+    // チーム青木の得点を入力
+    for (int i = 0; i < 8; i++) {
+        scanf("%d", &B[i]);
+    }
+
+    // 9回表の得点と8回裏の得点を比較して、チーム高橋の得点を計算
+    int sum_A = 0;
+    for (int i = 0; i < 9; i++) {
+        sum_A += A[i];
+    }
+
+    // 8回裏までのチーム青木の得点
+    int sum_B = 0;
+    for (int i = 0; i < 8; i++) {
+        sum_B += B[i];
+    }
+
+    // 9回裏に取る必要のある最小の得点を計算
+    int required_score = sum_A - sum_B+1;
+
+    // 出力
+    printf("%d\n", required_score);
+
+    return 0;
+}
+*/
